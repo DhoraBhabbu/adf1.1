@@ -1,0 +1,13 @@
+{
+	"name": "srs_audit_log_ds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LNK_AZRSQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

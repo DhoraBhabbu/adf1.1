@@ -1,0 +1,17 @@
+{
+	"name": "snk_smpl_ds2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LNK_AZRSQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "HumanResources_Employee"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

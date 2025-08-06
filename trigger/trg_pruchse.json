@@ -1,0 +1,32 @@
+{
+	"name": "trg_pruchse",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_purchase",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2025-07-30T11:09:00",
+				"timeZone": "India Standard Time",
+				"schedule": {
+					"minutes": [
+						42
+					],
+					"hours": [
+						16
+					]
+				}
+			}
+		}
+	}
+}

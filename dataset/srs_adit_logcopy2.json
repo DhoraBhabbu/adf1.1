@@ -1,0 +1,13 @@
+{
+	"name": "srs_adit_logcopy2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LNK_AZRSQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

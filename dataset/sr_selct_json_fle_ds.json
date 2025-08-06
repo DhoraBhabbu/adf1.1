@@ -1,0 +1,39 @@
+{
+	"name": "sr_selct_json_fle_ds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lnk_adls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "difft_format_file",
+				"fileSystem": "dhora"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"OrderID": {
+					"type": "integer"
+				},
+				"CustomerName": {
+					"type": "string"
+				},
+				"OrderDate": {
+					"type": "string"
+				},
+				"Amount": {
+					"type": "number"
+				},
+				"Status": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

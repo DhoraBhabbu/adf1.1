@@ -1,0 +1,13 @@
+{
+	"name": "adventureworks2010",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "srs_sql_sever_ds",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

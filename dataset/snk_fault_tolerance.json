@@ -1,0 +1,17 @@
+{
+	"name": "snk_fault_tolerance",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LNK_AZRSQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Person_BusinessEntityContact"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
