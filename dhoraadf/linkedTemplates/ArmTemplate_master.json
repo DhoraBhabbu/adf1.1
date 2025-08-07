@@ -1,0 +1,346 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "dhoraadf"
+		},
+		"AzureSqlDatabase1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSqlDatabase1'"
+		},
+		"AzureSqlDatabase2_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSqlDatabase2'"
+		},
+		"LNK_AZRSQL_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LNK_AZRSQL'"
+		},
+		"LNK_SqlServer_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LNK_SqlServer'"
+		},
+		"SqlServer1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SqlServer1'"
+		},
+		"lnk_adls_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'lnk_adls'"
+		},
+		"ls_adls_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_adls'"
+		},
+		"ls_blob_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_blob'"
+		},
+		"srs_sql_sever_ds_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'srs_sql_sever_ds'"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "dhora1.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "dhoradb1"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "dhoraadm1"
+		},
+		"AzureSqlDatabase2_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "dhora1.database.windows.net"
+		},
+		"AzureSqlDatabase2_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "dhoradb1"
+		},
+		"AzureSqlDatabase2_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "dhoraadm1"
+		},
+		"LNK_AZRSQL_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "dhora.database.windows.net"
+		},
+		"LNK_AZRSQL_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "dhoradb"
+		},
+		"LNK_AZRSQL_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "dhoraadm"
+		},
+		"LNK_SqlServer_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "DESKTOP-72B0RJP"
+		},
+		"LNK_SqlServer_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "TASK3"
+		},
+		"LNK_SqlServer_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "DESKTOP-72B0RJP\\Dhora"
+		},
+		"Lnk_SqlServer1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "@{linkedService().serverName}"
+		},
+		"Lnk_SqlServer1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "@{linkedService().dbName}"
+		},
+		"Lnk_SqlServer1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "@{linkedService().userName}"
+		},
+		"SqlServer1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "DESKTOP-72B0RJP"
+		},
+		"SqlServer1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "SBIQ"
+		},
+		"SqlServer1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "Dhora"
+		},
+		"lnk_adls_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://dhora.dfs.core.windows.net/"
+		},
+		"ls_adls_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://dhorastrage.dfs.core.windows.net/"
+		},
+		"srs_sql_sever_ds_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "DESKTOP-72B0RJP"
+		},
+		"srs_sql_sever_ds_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "AdventureWorksDW2014"
+		},
+		"srs_sql_sever_ds_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "Dhora"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "dhoraadf_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureSqlDatabase1_password": {
+						"value": "[parameters('AzureSqlDatabase1_password')]"
+					},
+					"AzureSqlDatabase2_password": {
+						"value": "[parameters('AzureSqlDatabase2_password')]"
+					},
+					"LNK_AZRSQL_password": {
+						"value": "[parameters('LNK_AZRSQL_password')]"
+					},
+					"lnk_adls_accountKey": {
+						"value": "[parameters('lnk_adls_accountKey')]"
+					},
+					"ls_adls_accountKey": {
+						"value": "[parameters('ls_adls_accountKey')]"
+					},
+					"ls_blob_connectionString": {
+						"value": "[parameters('ls_blob_connectionString')]"
+					},
+					"AzureSqlDatabase1_properties_typeProperties_server": {
+						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_server')]"
+					},
+					"AzureSqlDatabase1_properties_typeProperties_database": {
+						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_database')]"
+					},
+					"AzureSqlDatabase1_properties_typeProperties_userName": {
+						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_userName')]"
+					},
+					"AzureSqlDatabase2_properties_typeProperties_server": {
+						"value": "[parameters('AzureSqlDatabase2_properties_typeProperties_server')]"
+					},
+					"AzureSqlDatabase2_properties_typeProperties_database": {
+						"value": "[parameters('AzureSqlDatabase2_properties_typeProperties_database')]"
+					},
+					"AzureSqlDatabase2_properties_typeProperties_userName": {
+						"value": "[parameters('AzureSqlDatabase2_properties_typeProperties_userName')]"
+					},
+					"LNK_AZRSQL_properties_typeProperties_server": {
+						"value": "[parameters('LNK_AZRSQL_properties_typeProperties_server')]"
+					},
+					"LNK_AZRSQL_properties_typeProperties_database": {
+						"value": "[parameters('LNK_AZRSQL_properties_typeProperties_database')]"
+					},
+					"LNK_AZRSQL_properties_typeProperties_userName": {
+						"value": "[parameters('LNK_AZRSQL_properties_typeProperties_userName')]"
+					},
+					"Lnk_SqlServer1_properties_typeProperties_server": {
+						"value": "[parameters('Lnk_SqlServer1_properties_typeProperties_server')]"
+					},
+					"Lnk_SqlServer1_properties_typeProperties_database": {
+						"value": "[parameters('Lnk_SqlServer1_properties_typeProperties_database')]"
+					},
+					"Lnk_SqlServer1_properties_typeProperties_userName": {
+						"value": "[parameters('Lnk_SqlServer1_properties_typeProperties_userName')]"
+					},
+					"lnk_adls_properties_typeProperties_url": {
+						"value": "[parameters('lnk_adls_properties_typeProperties_url')]"
+					},
+					"ls_adls_properties_typeProperties_url": {
+						"value": "[parameters('ls_adls_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "dhoraadf_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'dhoraadf_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "dhoraadf_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'dhoraadf_ArmTemplate_1')]"
+			]
+		},
+		{
+			"name": "dhoraadf_ArmTemplate_3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LNK_SqlServer_password": {
+						"value": "[parameters('LNK_SqlServer_password')]"
+					},
+					"SqlServer1_password": {
+						"value": "[parameters('SqlServer1_password')]"
+					},
+					"srs_sql_sever_ds_password": {
+						"value": "[parameters('srs_sql_sever_ds_password')]"
+					},
+					"LNK_SqlServer_properties_typeProperties_server": {
+						"value": "[parameters('LNK_SqlServer_properties_typeProperties_server')]"
+					},
+					"LNK_SqlServer_properties_typeProperties_database": {
+						"value": "[parameters('LNK_SqlServer_properties_typeProperties_database')]"
+					},
+					"LNK_SqlServer_properties_typeProperties_userName": {
+						"value": "[parameters('LNK_SqlServer_properties_typeProperties_userName')]"
+					},
+					"SqlServer1_properties_typeProperties_server": {
+						"value": "[parameters('SqlServer1_properties_typeProperties_server')]"
+					},
+					"SqlServer1_properties_typeProperties_database": {
+						"value": "[parameters('SqlServer1_properties_typeProperties_database')]"
+					},
+					"SqlServer1_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServer1_properties_typeProperties_userName')]"
+					},
+					"srs_sql_sever_ds_properties_typeProperties_server": {
+						"value": "[parameters('srs_sql_sever_ds_properties_typeProperties_server')]"
+					},
+					"srs_sql_sever_ds_properties_typeProperties_database": {
+						"value": "[parameters('srs_sql_sever_ds_properties_typeProperties_database')]"
+					},
+					"srs_sql_sever_ds_properties_typeProperties_userName": {
+						"value": "[parameters('srs_sql_sever_ds_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'dhoraadf_ArmTemplate_2')]"
+			]
+		},
+		{
+			"name": "dhoraadf_ArmTemplate_4",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_4.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'dhoraadf_ArmTemplate_3')]"
+			]
+		}
+	]
+}

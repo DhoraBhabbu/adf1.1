@@ -1,0 +1,105 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "dhoraadf"
+		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
+		"AzureSqlDatabase2_password": {
+			"value": ""
+		},
+		"LNK_AZRSQL_password": {
+			"value": ""
+		},
+		"LNK_SqlServer_password": {
+			"value": ""
+		},
+		"SqlServer1_password": {
+			"value": ""
+		},
+		"lnk_adls_accountKey": {
+			"value": ""
+		},
+		"ls_adls_accountKey": {
+			"value": ""
+		},
+		"ls_blob_connectionString": {
+			"value": ""
+		},
+		"srs_sql_sever_ds_password": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "dhora1.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "dhoradb1"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "dhoraadm1"
+		},
+		"AzureSqlDatabase2_properties_typeProperties_server": {
+			"value": "dhora1.database.windows.net"
+		},
+		"AzureSqlDatabase2_properties_typeProperties_database": {
+			"value": "dhoradb1"
+		},
+		"AzureSqlDatabase2_properties_typeProperties_userName": {
+			"value": "dhoraadm1"
+		},
+		"LNK_AZRSQL_properties_typeProperties_server": {
+			"value": "dhora.database.windows.net"
+		},
+		"LNK_AZRSQL_properties_typeProperties_database": {
+			"value": "dhoradb"
+		},
+		"LNK_AZRSQL_properties_typeProperties_userName": {
+			"value": "dhoraadm"
+		},
+		"LNK_SqlServer_properties_typeProperties_server": {
+			"value": "DESKTOP-72B0RJP"
+		},
+		"LNK_SqlServer_properties_typeProperties_database": {
+			"value": "TASK3"
+		},
+		"LNK_SqlServer_properties_typeProperties_userName": {
+			"value": "DESKTOP-72B0RJP\\Dhora"
+		},
+		"Lnk_SqlServer1_properties_typeProperties_server": {
+			"value": "@{linkedService().serverName}"
+		},
+		"Lnk_SqlServer1_properties_typeProperties_database": {
+			"value": "@{linkedService().dbName}"
+		},
+		"Lnk_SqlServer1_properties_typeProperties_userName": {
+			"value": "@{linkedService().userName}"
+		},
+		"SqlServer1_properties_typeProperties_server": {
+			"value": "DESKTOP-72B0RJP"
+		},
+		"SqlServer1_properties_typeProperties_database": {
+			"value": "SBIQ"
+		},
+		"SqlServer1_properties_typeProperties_userName": {
+			"value": "Dhora"
+		},
+		"lnk_adls_properties_typeProperties_url": {
+			"value": "https://dhora.dfs.core.windows.net/"
+		},
+		"ls_adls_properties_typeProperties_url": {
+			"value": "https://dhorastrage.dfs.core.windows.net/"
+		},
+		"srs_sql_sever_ds_properties_typeProperties_server": {
+			"value": "DESKTOP-72B0RJP"
+		},
+		"srs_sql_sever_ds_properties_typeProperties_database": {
+			"value": "AdventureWorksDW2014"
+		},
+		"srs_sql_sever_ds_properties_typeProperties_userName": {
+			"value": "Dhora"
+		}
+	}
+}
