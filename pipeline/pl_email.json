@@ -1,9 +1,9 @@
 {
-	"name": "pl_emails_join",
+	"name": "pl_email",
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup_email_join",
+				"name": "Lookup1",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -27,18 +27,18 @@
 						}
 					},
 					"dataset": {
-						"referenceName": "ds_emails",
+						"referenceName": "ds_email_a_to_s",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
 				}
 			},
 			{
-				"name": "ForEach_email",
+				"name": "ForEach email",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Lookup_email_join",
+						"activity": "Lookup1",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -47,57 +47,61 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Lookup_email_join').output.value",
+						"value": "@activity('Lookup1').output.value",
 						"type": "Expression"
 					},
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "Append variable1",
-							"type": "AppendVariable",
-							"dependsOn": [],
+							"name": "Set variable emails",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Set temp emails",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "Emails_array",
+								"variableName": "Emails",
 								"value": {
-									"value": "@item().Emails",
+									"value": "@variables('tempemails')",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Set temp emails",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "tempemails",
+								"value": {
+									"value": "@concat(item().Emails,';',variables('Emails'))",
 									"type": "Expression"
 								}
 							}
 						}
 					]
 				}
-			},
-			{
-				"name": "Set Email arry",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "ForEach_email",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "Email_string",
-					"value": {
-						"value": "@join(variables('Emails_array'),';')",
-						"type": "Expression"
-					}
-				}
 			}
 		],
 		"variables": {
-			"Emails_array": {
-				"type": "Array"
+			"Emails": {
+				"type": "String"
 			},
-			"Email_string": {
+			"tempemails": {
 				"type": "String"
 			}
 		},
