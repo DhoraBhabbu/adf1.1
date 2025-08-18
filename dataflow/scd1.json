@@ -29,7 +29,7 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "insertscdds",
+						"referenceName": "AzureSqlTable4",
 						"type": "DatasetReference"
 					},
 					"name": "insertscd1ds"
@@ -98,8 +98,8 @@
 				"     ),",
 				"     deletable:false,",
 				"     insertable:false,",
-				"     updateable:true,",
-				"     upsertable:false,",
+				"     updateable:false,",
+				"     upsertable:true,",
 				"     keys:['ID'],",
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
