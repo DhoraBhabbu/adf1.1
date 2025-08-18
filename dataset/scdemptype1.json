@@ -1,0 +1,45 @@
+{
+	"name": "scdemptype1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Employee.csv",
+				"folderPath": "SCD1",
+				"fileSystem": "input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "EmpID",
+				"type": "String"
+			},
+			{
+				"name": "EmpName",
+				"type": "String"
+			},
+			{
+				"name": "JobTitle",
+				"type": "String"
+			},
+			{
+				"name": "Department",
+				"type": "String"
+			},
+			{
+				"name": "Salary",
+				"type": "String"
+			}
+		]
+	}
+}

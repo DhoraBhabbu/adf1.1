@@ -1,0 +1,148 @@
+{
+	"name": "scd1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "scdcontactt1",
+						"type": "DatasetReference"
+					},
+					"name": "adls"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTablescdt1",
+						"type": "DatasetReference"
+					},
+					"name": "azuresql"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "updatedsdc1ds",
+						"type": "DatasetReference"
+					},
+					"name": "updateddatascd1"
+				},
+				{
+					"dataset": {
+						"referenceName": "insertscdds",
+						"type": "DatasetReference"
+					},
+					"name": "insertscd1ds"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "join1"
+				},
+				{
+					"name": "split1"
+				},
+				{
+					"name": "alterRow1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          ID as integer,",
+				"          Name as string,",
+				"          Contact as string,",
+				"          Gmail as string,",
+				"          Address as string,",
+				"          Pincode as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> adls",
+				"source(output(",
+				"          ID as integer,",
+				"          Name as string,",
+				"          Contact as string,",
+				"          Gmail as string,",
+				"          Address as string,",
+				"          Pincode as string,",
+				"          hashkey as binary",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> azuresql",
+				"adls derive(Modified_Date = currentUTC(),",
+				"          Hash_Code = toBinary(md5(Contact+Gmail+Address))) ~> derivedColumn1",
+				"derivedColumn1, azuresql join(adls@ID == azuresql@ID,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"join1 split(!isNull(azuresql@ID)&& notEquals(Hash_Code,hashkey),",
+				"     !isNull(azuresql@ID),",
+				"     disjoint: false) ~> split1@(matched, unmatched)",
+				"split1@matched alterRow(updateIf(true())) ~> alterRow1",
+				"alterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          ID as integer,",
+				"          Name as string,",
+				"          Contact as string,",
+				"          Gmail as string,",
+				"          Address as string,",
+				"          Pincode as string,",
+				"          hashkey as binary",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:false,",
+				"     updateable:true,",
+				"     upsertable:false,",
+				"     keys:['ID'],",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          ID = split1@matched@ID,",
+				"          Name = split1@matched@Name,",
+				"          Contact = split1@matched@Contact,",
+				"          Gmail = split1@matched@Gmail,",
+				"          Address = split1@matched@Address,",
+				"          Pincode = split1@matched@Pincode,",
+				"          hashkey = Hash_Code",
+				"     )) ~> updateddatascd1",
+				"split1@unmatched sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          ID as integer,",
+				"          Name as string,",
+				"          Contact as string,",
+				"          Gmail as string,",
+				"          Address as string,",
+				"          Pincode as string,",
+				"          hashkey as binary",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          ID = split1@unmatched@ID,",
+				"          Name = split1@unmatched@Name,",
+				"          Contact = split1@unmatched@Contact,",
+				"          Gmail = split1@unmatched@Gmail,",
+				"          Address = split1@unmatched@Address,",
+				"          Pincode = split1@unmatched@Pincode,",
+				"          hashkey = Hash_Code",
+				"     )) ~> insertscd1ds"
+			]
+		}
+	}
+}

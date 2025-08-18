@@ -1,0 +1,49 @@
+{
+	"name": "scdcontactt1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "EmployeeContacts_WithID.csv",
+				"folderPath": "SCD1",
+				"fileSystem": "input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "ID",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "Contact",
+				"type": "String"
+			},
+			{
+				"name": "Gmail",
+				"type": "String"
+			},
+			{
+				"name": "Address",
+				"type": "String"
+			},
+			{
+				"name": "Pincode",
+				"type": "String"
+			}
+		]
+	}
+}
