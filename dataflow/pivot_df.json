@@ -1,0 +1,62 @@
+{
+	"name": "pivot_df",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "srrc_pvt_ds",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "snk_pvt_ds",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "pivot1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id as string,",
+				"          name as string,",
+				"          gender as string,",
+				"          country as string,",
+				"          deptid as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 pivot(groupBy(deptid),",
+				"     pivotBy(gender),",
+				"     Count = count(id),",
+				"     columnNaming: '$N$V',",
+				"     lateral: true) ~> pivot1",
+				"pivot1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Emp_Name as string,",
+				"          Emp_ID as string,",
+				"          Country_Name as string",
+				"     ),",
+				"     partitionFileNames:['PivortEmp.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
+			]
+		}
+	}
+}
