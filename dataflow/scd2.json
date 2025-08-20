@@ -87,7 +87,7 @@
 				"          Hash_Code = toBinary(md5(Gmail+Contact+Address))) ~> derivedColumn1",
 				"asqlsrc2 derive(is_active = 0,",
 				"          snk_hash_code = toBinary(md5(E_Gmail+E_Contact+E_Address))) ~> derivedColumn2",
-				"derivedColumn1, derivedColumn2 exists(ID==E_ID && hex(Hash_Code) ==hex(E_HashKey),",
+				"derivedColumn1, derivedColumn2 exists(hex(Hash_Code) ==hex(E_HashKey),",
 				"     negate:true,",
 				"     broadcast: 'auto')~> exists1",
 				"derivedColumn2 filter(asqlsrc2@IS_Active==1) ~> filter1",
